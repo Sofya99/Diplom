@@ -561,7 +561,17 @@ def Export(request):
 
     return render(request, 'MainApp/Export.html')
 
+def Export_1(request):
 
+    return render(request, 'MainApp/Export_1.html')
+
+def Export_2(request):
+
+    return render(request, 'MainApp/Export_2.html')
+
+def Export_3(request):
+
+    return render(request, 'MainApp/Export_3.html')
 
 def Ex(request):
     res = request.session.get('res2')
@@ -629,10 +639,6 @@ def Ex(request):
     for i in range(8760):
         per.append(i)
     del per[::2]
-
-    #res2 = request.session.get('res_coord_1')
-    #res3 = request.session.get('res_coord_2')
-    #res4 = request.session.get('res_coord_3')
 
     a = []
     a1 = []
@@ -856,7 +862,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
 
@@ -868,7 +874,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
 
@@ -917,7 +923,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
                 j = 0
@@ -930,7 +936,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
                 j = 0
@@ -2319,7 +2325,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
 
@@ -2331,7 +2337,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
 
@@ -2380,7 +2386,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
                 j = 0
@@ -2393,7 +2399,7 @@ def Ex(request):
 
                 response = HttpResponse(content_type='text/csv')
                 writer = csv.writer(response)
-                response['Content-Disposition'] = 'attachment; filename = "sum.csv"'
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
 
                 writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
                 j = 0
@@ -2405,21 +2411,5508 @@ def Ex(request):
 
     return response
 
+def Ex_1(request):
 
-    #Period = request.GET.get('Period')
-    #Type = request.GET.get('Type')
-    #Hour = request.GET.get('Hour')
-    #if Period == 'All_period':
-                    # h = 1
-        #if Type == 'Type_surok':
-            #if Hour == 'Hour_1':
-                #h = 1
-    #elif Period == 'Part_Period':
-       # h = 2
-    #d=[]
-   # d = begin + end
-    #leng = len(a212)
-   # leng1 = len(a)
-    #return render(request, 'MainApp/Ex.html', context={'res1': a, 'b':a21})
+    res1 = request.session.get('res_coord_1')
+
+    r = StationsNew.objects.get(id=res1)
+
+    stat = AlbedoNew.objects.filter(id=r.id)
+    stat1 = hour_sum_sum_srNew.objects.filter(IdStations=r.id)
+    stat2 = hour_sum_straight_srNew.objects.filter(IdStations=r.id)
+    stat3 = hour_sum_diff_srNew.objects.filter(IdStations=r.id)
+
+    hour = []
+    for i in range(365):
+        for j in range(1, 25):
+            hour.append(j)
+
+    day = []
+    for i in range(1, 13):
+        if i in [1, 3, 5, 7, 8, 10, 12]:
+            for j in range(1, 32):
+                for k in range(24):
+                    day.append(j)
+        elif i in [4, 6, 9, 11]:
+            for j in range(1, 31):
+                for k in range(24):
+                    day.append(j)
+        elif i == 2:
+            for j in range(1, 29):
+                for k in range(24):
+                    day.append(j)
+
+    month = []
+    for i in range(1, 13):
+        if i in [1, 3, 5, 7, 8, 10, 12]:
+            for j in range(31):
+                for k in range(24):
+                    month.append(i)
+        elif i in [4, 6, 9, 11]:
+            for j in range(30):
+                for k in range(24):
+                    month.append(i)
+        elif i == 2:
+            for j in range(28):
+                for k in range(24):
+                    month.append(i)
+
+    DOY = []
+    for i in range(1, 366):
+        for j in range(24):
+            DOY.append(i)
+
+    HOY = []
+    for i in range(1, 8761):
+        HOY.append(i)
+
+    ind = []
+    for i in range(4380):
+        ind.append(i)
+
+    per = []
+    for i in range(8760):
+        per.append(i)
+    del per[::2]
+
+    # res2 = request.session.get('res_coord_1')
+    # res3 = request.session.get('res_coord_2')
+    # res4 = request.session.get('res_coord_3')
+
+    a = []
+    a1 = []
+    a2 = []
+    a3 = []
+    a11 = []
+    a12 = []
+    a13 = []
+    a14 = []
+    a15 = []
+    a16 = []
+    a17 = []
+    a18 = []
+    a19 = []
+    a110 = []
+    a111 = []
+    a112 = []
+
+    object_list = serializers.serialize("python", stat)
+    object_list1 = serializers.serialize("python", stat1)
+    object_list2 = serializers.serialize("python", stat2)
+    object_list3 = serializers.serialize("python", stat3)
+
+    Period = request.GET.get('Period')
+    Type = request.GET.get('Type')
+    Hour = request.GET.get('Hour')
+
+    # Тип интерполяции - "День сурка"
+    if Type == 'Type_surok':
+        # Заполнение массивов
+        for object in object_list:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_2':
+                    for i in range(672):
+                        a.append(float(field_value))
+                if field_name == 'Month_3':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_4':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_5':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_6':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_7':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_8':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_9':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_10':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_11':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_12':
+                    for i in range(744):
+                        a.append(float(field_value))
+
+        for object in object_list1:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a1 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+
+        for object in object_list2:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a2 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+
+        for object in object_list3:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a3 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        # Данные за весь период
+        if Period == 'All_period':
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                for i in range(8760):
+                    writer.writerow([i, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                j = 0
+                for i in per:
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+        # Данные за указанный интервал
+        if Period == 'Part_Period':
+            Mes_begin = request.GET.get('Mes_begin')
+            Day_begin = request.GET.get('Day_begin')
+            Hour_begin = request.GET.get('Hour_begin')
+
+            Mes_end = request.GET.get('Mes_end')
+            Day_end = request.GET.get('Day_end')
+            Hour_end = request.GET.get('Hour_end')
+
+            sum_begin = 0
+            sum_end = 0
+
+            for i in range(1, int(Mes_begin)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_begin = sum_begin + 744
+                if i == 2:
+                    sum_begin = sum_begin + 672
+                if i in [4, 6, 9, 11]:
+                    sum_begin = sum_begin + 720
+
+            sum_begin = sum_begin + int((int(Day_begin) - 1) * 24)
+            sum_begin = sum_begin + int(Hour_begin)
+
+            for i in range(1, int(Mes_end)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_end = sum_end + 744
+                if i == 2:
+                    sum_end = sum_end + 672
+                if i in [4, 6, 9, 11]:
+                    sum_end = sum_end + 720
+
+            sum_end = sum_end + int((int(Day_end) - 1) * 24)
+            sum_end = sum_end + int(Hour_end)
+
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in range(sum_begin - 1, sum_end):
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in per:
+                    if i in range(sum_begin - 1, sum_end + 1):
+                        writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                        j = j + 1
+
+    # Тип интерполяции - линейная
+    if Type == 'Type_lin':
+        a21 = []
+        a22 = []
+        a23 = []
+        a24 = []
+        a25 = []
+        a26 = []
+        a27 = []
+        a28 = []
+        a29 = []
+        a210 = []
+        a211 = []
+        a212 = []
+
+        # Заполнение массивов
+        for object in object_list:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(1):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(1):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(1):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 744)
+                k = a13[i]
+                for j in range(744):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 744)
+                k = a13[i]
+                for j in range(744):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(1):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(1):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(1):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(1):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(1):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(1):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(1):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(1):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(1):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list1:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a1 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list2:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a2 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list3:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a3 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        if Period == 'All_period':
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                for i in range(8760):
+                    writer.writerow([i, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                j = 0
+                for i in per:
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+        # Данные за указанный интервал
+        if Period == 'Part_Period':
+            Mes_begin = request.GET.get('Mes_begin')
+            Day_begin = request.GET.get('Day_begin')
+            Hour_begin = request.GET.get('Hour_begin')
+
+            Mes_end = request.GET.get('Mes_end')
+            Day_end = request.GET.get('Day_end')
+            Hour_end = request.GET.get('Hour_end')
+
+            sum_begin = 0
+            sum_end = 0
+
+            for i in range(1, int(Mes_begin)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_begin = sum_begin + 744
+                if i == 2:
+                    sum_begin = sum_begin + 672
+                if i in [4, 6, 9, 11]:
+                    sum_begin = sum_begin + 720
+
+            sum_begin = sum_begin + int((int(Day_begin) - 1) * 24)
+            sum_begin = sum_begin + int(Hour_begin)
+
+            for i in range(1, int(Mes_end)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_end = sum_end + 744
+                if i == 2:
+                    sum_end = sum_end + 672
+                if i in [4, 6, 9, 11]:
+                    sum_end = sum_end + 720
+
+            sum_end = sum_end + int((int(Day_end) - 1) * 24)
+            sum_end = sum_end + int(Hour_end)
+
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in range(sum_begin - 1, sum_end):
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in per:
+                    if i in range(sum_begin - 1, sum_end + 1):
+                        writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                        j = j + 1
+
+    return response
 
 
+    #res3 =
+    #res4 =
+
+
+def Ex_2(request):
+    res1 = request.session.get('res_coord_2')
+
+    r = StationsNew.objects.get(id=res1)
+
+    stat = AlbedoNew.objects.filter(id=r.id)
+    stat1 = hour_sum_sum_srNew.objects.filter(IdStations=r.id)
+    stat2 = hour_sum_straight_srNew.objects.filter(IdStations=r.id)
+    stat3 = hour_sum_diff_srNew.objects.filter(IdStations=r.id)
+
+    hour = []
+    for i in range(365):
+        for j in range(1, 25):
+            hour.append(j)
+
+    day = []
+    for i in range(1, 13):
+        if i in [1, 3, 5, 7, 8, 10, 12]:
+            for j in range(1, 32):
+                for k in range(24):
+                    day.append(j)
+        elif i in [4, 6, 9, 11]:
+            for j in range(1, 31):
+                for k in range(24):
+                    day.append(j)
+        elif i == 2:
+            for j in range(1, 29):
+                for k in range(24):
+                    day.append(j)
+
+    month = []
+    for i in range(1, 13):
+        if i in [1, 3, 5, 7, 8, 10, 12]:
+            for j in range(31):
+                for k in range(24):
+                    month.append(i)
+        elif i in [4, 6, 9, 11]:
+            for j in range(30):
+                for k in range(24):
+                    month.append(i)
+        elif i == 2:
+            for j in range(28):
+                for k in range(24):
+                    month.append(i)
+
+    DOY = []
+    for i in range(1, 366):
+        for j in range(24):
+            DOY.append(i)
+
+    HOY = []
+    for i in range(1, 8761):
+        HOY.append(i)
+
+    ind = []
+    for i in range(4380):
+        ind.append(i)
+
+    per = []
+    for i in range(8760):
+        per.append(i)
+    del per[::2]
+
+    # res2 = request.session.get('res_coord_1')
+    # res3 = request.session.get('res_coord_2')
+    # res4 = request.session.get('res_coord_3')
+
+    a = []
+    a1 = []
+    a2 = []
+    a3 = []
+    a11 = []
+    a12 = []
+    a13 = []
+    a14 = []
+    a15 = []
+    a16 = []
+    a17 = []
+    a18 = []
+    a19 = []
+    a110 = []
+    a111 = []
+    a112 = []
+
+    object_list = serializers.serialize("python", stat)
+    object_list1 = serializers.serialize("python", stat1)
+    object_list2 = serializers.serialize("python", stat2)
+    object_list3 = serializers.serialize("python", stat3)
+
+    Period = request.GET.get('Period')
+    Type = request.GET.get('Type')
+    Hour = request.GET.get('Hour')
+
+    # Тип интерполяции - "День сурка"
+    if Type == 'Type_surok':
+        # Заполнение массивов
+        for object in object_list:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_2':
+                    for i in range(672):
+                        a.append(float(field_value))
+                if field_name == 'Month_3':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_4':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_5':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_6':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_7':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_8':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_9':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_10':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_11':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_12':
+                    for i in range(744):
+                        a.append(float(field_value))
+
+        for object in object_list1:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a1 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+
+        for object in object_list2:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a2 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+
+        for object in object_list3:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a3 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        # Данные за весь период
+        if Period == 'All_period':
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                for i in range(8760):
+                    writer.writerow([i, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                j = 0
+                for i in per:
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+        # Данные за указанный интервал
+        if Period == 'Part_Period':
+            Mes_begin = request.GET.get('Mes_begin')
+            Day_begin = request.GET.get('Day_begin')
+            Hour_begin = request.GET.get('Hour_begin')
+
+            Mes_end = request.GET.get('Mes_end')
+            Day_end = request.GET.get('Day_end')
+            Hour_end = request.GET.get('Hour_end')
+
+            sum_begin = 0
+            sum_end = 0
+
+            for i in range(1, int(Mes_begin)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_begin = sum_begin + 744
+                if i == 2:
+                    sum_begin = sum_begin + 672
+                if i in [4, 6, 9, 11]:
+                    sum_begin = sum_begin + 720
+
+            sum_begin = sum_begin + int((int(Day_begin) - 1) * 24)
+            sum_begin = sum_begin + int(Hour_begin)
+
+            for i in range(1, int(Mes_end)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_end = sum_end + 744
+                if i == 2:
+                    sum_end = sum_end + 672
+                if i in [4, 6, 9, 11]:
+                    sum_end = sum_end + 720
+
+            sum_end = sum_end + int((int(Day_end) - 1) * 24)
+            sum_end = sum_end + int(Hour_end)
+
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in range(sum_begin - 1, sum_end):
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in per:
+                    if i in range(sum_begin - 1, sum_end + 1):
+                        writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                        j = j + 1
+
+    # Тип интерполяции - линейная
+    if Type == 'Type_lin':
+        a21 = []
+        a22 = []
+        a23 = []
+        a24 = []
+        a25 = []
+        a26 = []
+        a27 = []
+        a28 = []
+        a29 = []
+        a210 = []
+        a211 = []
+        a212 = []
+
+        # Заполнение массивов
+        for object in object_list:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(1):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(1):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(1):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 744)
+                k = a13[i]
+                for j in range(744):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 744)
+                k = a13[i]
+                for j in range(744):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(1):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(1):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(1):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(1):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(1):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(1):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(1):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(1):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(1):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list1:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a1 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list2:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a2 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list3:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a3 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        if Period == 'All_period':
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                for i in range(8760):
+                    writer.writerow([i, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                j = 0
+                for i in per:
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+        # Данные за указанный интервал
+        if Period == 'Part_Period':
+            Mes_begin = request.GET.get('Mes_begin')
+            Day_begin = request.GET.get('Day_begin')
+            Hour_begin = request.GET.get('Hour_begin')
+
+            Mes_end = request.GET.get('Mes_end')
+            Day_end = request.GET.get('Day_end')
+            Hour_end = request.GET.get('Hour_end')
+
+            sum_begin = 0
+            sum_end = 0
+
+            for i in range(1, int(Mes_begin)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_begin = sum_begin + 744
+                if i == 2:
+                    sum_begin = sum_begin + 672
+                if i in [4, 6, 9, 11]:
+                    sum_begin = sum_begin + 720
+
+            sum_begin = sum_begin + int((int(Day_begin) - 1) * 24)
+            sum_begin = sum_begin + int(Hour_begin)
+
+            for i in range(1, int(Mes_end)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_end = sum_end + 744
+                if i == 2:
+                    sum_end = sum_end + 672
+                if i in [4, 6, 9, 11]:
+                    sum_end = sum_end + 720
+
+            sum_end = sum_end + int((int(Day_end) - 1) * 24)
+            sum_end = sum_end + int(Hour_end)
+
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in range(sum_begin - 1, sum_end):
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in per:
+                    if i in range(sum_begin - 1, sum_end + 1):
+                        writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                        j = j + 1
+
+    return response
+
+
+def Ex_3(request):
+    res1 = request.session.get('res_coord_3')
+
+    r = StationsNew.objects.get(id=res1)
+
+    stat = AlbedoNew.objects.filter(id=r.id)
+    stat1 = hour_sum_sum_srNew.objects.filter(IdStations=r.id)
+    stat2 = hour_sum_straight_srNew.objects.filter(IdStations=r.id)
+    stat3 = hour_sum_diff_srNew.objects.filter(IdStations=r.id)
+
+    hour = []
+    for i in range(365):
+        for j in range(1, 25):
+            hour.append(j)
+
+    day = []
+    for i in range(1, 13):
+        if i in [1, 3, 5, 7, 8, 10, 12]:
+            for j in range(1, 32):
+                for k in range(24):
+                    day.append(j)
+        elif i in [4, 6, 9, 11]:
+            for j in range(1, 31):
+                for k in range(24):
+                    day.append(j)
+        elif i == 2:
+            for j in range(1, 29):
+                for k in range(24):
+                    day.append(j)
+
+    month = []
+    for i in range(1, 13):
+        if i in [1, 3, 5, 7, 8, 10, 12]:
+            for j in range(31):
+                for k in range(24):
+                    month.append(i)
+        elif i in [4, 6, 9, 11]:
+            for j in range(30):
+                for k in range(24):
+                    month.append(i)
+        elif i == 2:
+            for j in range(28):
+                for k in range(24):
+                    month.append(i)
+
+    DOY = []
+    for i in range(1, 366):
+        for j in range(24):
+            DOY.append(i)
+
+    HOY = []
+    for i in range(1, 8761):
+        HOY.append(i)
+
+    ind = []
+    for i in range(4380):
+        ind.append(i)
+
+    per = []
+    for i in range(8760):
+        per.append(i)
+    del per[::2]
+
+    # res2 = request.session.get('res_coord_1')
+    # res3 = request.session.get('res_coord_2')
+    # res4 = request.session.get('res_coord_3')
+
+    a = []
+    a1 = []
+    a2 = []
+    a3 = []
+    a11 = []
+    a12 = []
+    a13 = []
+    a14 = []
+    a15 = []
+    a16 = []
+    a17 = []
+    a18 = []
+    a19 = []
+    a110 = []
+    a111 = []
+    a112 = []
+
+    object_list = serializers.serialize("python", stat)
+    object_list1 = serializers.serialize("python", stat1)
+    object_list2 = serializers.serialize("python", stat2)
+    object_list3 = serializers.serialize("python", stat3)
+
+    Period = request.GET.get('Period')
+    Type = request.GET.get('Type')
+    Hour = request.GET.get('Hour')
+
+    # Тип интерполяции - "День сурка"
+    if Type == 'Type_surok':
+        # Заполнение массивов
+        for object in object_list:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_2':
+                    for i in range(672):
+                        a.append(float(field_value))
+                if field_name == 'Month_3':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_4':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_5':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_6':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_7':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_8':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_9':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_10':
+                    for i in range(744):
+                        a.append(float(field_value))
+                if field_name == 'Month_11':
+                    for i in range(720):
+                        a.append(float(field_value))
+                if field_name == 'Month_12':
+                    for i in range(744):
+                        a.append(float(field_value))
+
+        for object in object_list1:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a1 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+
+        for object in object_list2:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a2 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+
+        for object in object_list3:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+
+        a3 = a11 * 31 + a12 * 28 + a13 * 31 + a14 * 30 + a15 * 31 + a16 * 30 + a17 * 31 + a18 * 31 + a19 * 30 + a110 * 31 + a111 * 30 + a112 * 31
+
+        # Данные за весь период
+        if Period == 'All_period':
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                for i in range(8760):
+                    writer.writerow([i, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                j = 0
+                for i in per:
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+        # Данные за указанный интервал
+        if Period == 'Part_Period':
+            Mes_begin = request.GET.get('Mes_begin')
+            Day_begin = request.GET.get('Day_begin')
+            Hour_begin = request.GET.get('Hour_begin')
+
+            Mes_end = request.GET.get('Mes_end')
+            Day_end = request.GET.get('Day_end')
+            Hour_end = request.GET.get('Hour_end')
+
+            sum_begin = 0
+            sum_end = 0
+
+            for i in range(1, int(Mes_begin)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_begin = sum_begin + 744
+                if i == 2:
+                    sum_begin = sum_begin + 672
+                if i in [4, 6, 9, 11]:
+                    sum_begin = sum_begin + 720
+
+            sum_begin = sum_begin + int((int(Day_begin) - 1) * 24)
+            sum_begin = sum_begin + int(Hour_begin)
+
+            for i in range(1, int(Mes_end)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_end = sum_end + 744
+                if i == 2:
+                    sum_end = sum_end + 672
+                if i in [4, 6, 9, 11]:
+                    sum_end = sum_end + 720
+
+            sum_end = sum_end + int((int(Day_end) - 1) * 24)
+            sum_end = sum_end + int(Hour_end)
+
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in range(sum_begin - 1, sum_end):
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in per:
+                    if i in range(sum_begin - 1, sum_end + 1):
+                        writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                        j = j + 1
+
+    # Тип интерполяции - линейная
+    if Type == 'Type_lin':
+        a21 = []
+        a22 = []
+        a23 = []
+        a24 = []
+        a25 = []
+        a26 = []
+        a27 = []
+        a28 = []
+        a29 = []
+        a210 = []
+        a211 = []
+        a212 = []
+
+        # Заполнение массивов
+        for object in object_list:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(1):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(1):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 672)
+                k = a12[i]
+                for j in range(672):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(1):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 744)
+                k = a13[i]
+                for j in range(744):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 744)
+                k = a13[i]
+                for j in range(744):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 744)
+                k = a11[i]
+                for j in range(744):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(1):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 720)
+                k = a14[i]
+                for j in range(720):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(1):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 744)
+                k = a15[i]
+                for j in range(744):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(1):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 720)
+                k = a16[i]
+                for j in range(720):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(1):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 744)
+                k = a17[i]
+                for j in range(744):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(1):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 744)
+                k = a18[i]
+                for j in range(744):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(1):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 720)
+                k = a19[i]
+                for j in range(720):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(1):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 744)
+                k = a110[i]
+                for j in range(744):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(1):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 720)
+                k = a111[i]
+                for j in range(720):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(1):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 744)
+                k = a112[i]
+                for j in range(744):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list1:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a1 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list2:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a2 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        for object in object_list3:
+            for field_name, field_value in object['fields'].items():
+                if field_name == 'Month_1':
+                    a11.append(float(field_value))
+                if field_name == 'Month_2':
+                    a12.append(float(field_value))
+                if field_name == 'Month_3':
+                    a13.append(float(field_value))
+                if field_name == 'Month_4':
+                    a14.append(float(field_value))
+                if field_name == 'Month_5':
+                    a15.append(float(field_value))
+                if field_name == 'Month_6':
+                    a16.append(float(field_value))
+                if field_name == 'Month_7':
+                    a17.append(float(field_value))
+                if field_name == 'Month_8':
+                    a18.append(float(field_value))
+                if field_name == 'Month_9':
+                    a19.append(float(field_value))
+                if field_name == 'Month_10':
+                    a110.append(float(field_value))
+                if field_name == 'Month_11':
+                    a111.append(float(field_value))
+                if field_name == 'Month_12':
+                    a112.append(float(field_value))
+        # 1
+        for i in range(24):
+            if a11[i] > a12[i]:
+                raz = a11[i] - a12[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k - delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] < a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+            elif a11[i] == a12[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a21.append(float("{0:.3f}".format(k)))
+        # 2
+        for i in range(24):
+            if a12[i] > a13[i]:
+                raz = a12[i] - a13[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k - delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] < a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+            elif a12[i] == a13[i]:
+                raz = a13[i] - a12[i]
+                delt = float(raz / 28)
+                k = a12[i]
+                for j in range(28):
+                    k = k + delt
+                    a22.append(float("{0:.3f}".format(k)))
+        # 3
+        for i in range(24):
+            if a13[i] > a14[i]:
+                raz = a13[i] - a14[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k - delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] < a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a13[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+            elif a13[i] == a14[i]:
+                raz = a14[i] - a13[i]
+                delt = float(raz / 31)
+                k = a11[i]
+                for j in range(31):
+                    k = k + delt
+                    a23.append(float("{0:.3f}".format(k)))
+        # 4
+        for i in range(24):
+            if a14[i] > a15[i]:
+                raz = a14[i] - a15[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k - delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] < a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+            elif a14[i] == a15[i]:
+                raz = a15[i] - a14[i]
+                delt = float(raz / 30)
+                k = a14[i]
+                for j in range(30):
+                    k = k + delt
+                    a24.append(float("{0:.3f}".format(k)))
+        # 5
+        for i in range(24):
+            if a15[i] > a16[i]:
+                raz = a15[i] - a16[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k - delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] < a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+            elif a15[i] == a16[i]:
+                raz = a16[i] - a15[i]
+                delt = float(raz / 31)
+                k = a15[i]
+                for j in range(31):
+                    k = k + delt
+                    a25.append(float("{0:.3f}".format(k)))
+        # 6
+        for i in range(24):
+            if a16[i] > a17[i]:
+                raz = a16[i] - a17[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k - delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] < a17[i]:
+                raz = a17[i] - a16[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+            elif a16[i] == a17[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a16[i]
+                for j in range(30):
+                    k = k + delt
+                    a26.append(float("{0:.3f}".format(k)))
+        # 7
+        for i in range(24):
+            if a17[i] > a18[i]:
+                raz = a17[i] - a18[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k - delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] < a18[i]:
+                raz = a18[i] - a17[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+            elif a17[i] == a18[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 31)
+                k = a17[i]
+                for j in range(31):
+                    k = k + delt
+                    a27.append(float("{0:.3f}".format(k)))
+        # 8
+        for i in range(24):
+            if a18[i] > a19[i]:
+                raz = a18[i] - a19[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k - delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] < a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+            elif a18[i] == a19[i]:
+                raz = a19[i] - a18[i]
+                delt = float(raz / 31)
+                k = a18[i]
+                for j in range(31):
+                    k = k + delt
+                    a28.append(float("{0:.3f}".format(k)))
+        # 9
+        for i in range(24):
+            if a19[i] > a110[i]:
+                raz = a19[i] - a110[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k - delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] < a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+            elif a19[i] == a110[i]:
+                raz = a110[i] - a19[i]
+                delt = float(raz / 30)
+                k = a19[i]
+                for j in range(30):
+                    k = k + delt
+                    a29.append(float("{0:.3f}".format(k)))
+        # 10
+        for i in range(24):
+            if a110[i] > a111[i]:
+                raz = a110[i] - a111[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k - delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] < a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+            elif a110[i] == a111[i]:
+                raz = a111[i] - a110[i]
+                delt = float(raz / 31)
+                k = a110[i]
+                for j in range(31):
+                    k = k + delt
+                    a210.append(float("{0:.3f}".format(k)))
+        # 11
+        for i in range(24):
+            if a111[i] > a112[i]:
+                raz = a111[i] - a112[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k - delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] < a112[i]:
+                raz = a112[i] - a111[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+            elif a111[i] == a112[i]:
+                raz = a12[i] - a11[i]
+                delt = float(raz / 30)
+                k = a111[i]
+                for j in range(30):
+                    k = k + delt
+                    a211.append(float("{0:.3f}".format(k)))
+        # 12
+        for i in range(24):
+            if a112[i] > a11[i]:
+                raz = a112[i] - a11[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k - delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] < a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+            elif a112[i] == a11[i]:
+                raz = a11[i] - a112[i]
+                delt = float(raz / 31)
+                k = a112[i]
+                for j in range(31):
+                    k = k + delt
+                    a212.append(float("{0:.3f}".format(k)))
+
+        begin = []
+        for i in range(336):
+            begin.append(a212[i])
+        end = []
+        for i in range(336, 744):
+            end.append(a212[i])
+
+        a3 = begin + a21 + a22 + a23 + a24 + a25 + a26 + a27 + a28 + a29 + a210 + a211 + end
+
+        a11.clear()
+        a12.clear()
+        a13.clear()
+        a14.clear()
+        a15.clear()
+        a16.clear()
+        a17.clear()
+        a18.clear()
+        a19.clear()
+        a110.clear()
+        a111.clear()
+        a112.clear()
+        a21.clear()
+        a22.clear()
+        a23.clear()
+        a24.clear()
+        a25.clear()
+        a26.clear()
+        a27.clear()
+        a28.clear()
+        a29.clear()
+        a210.clear()
+        a211.clear()
+        a212.clear()
+        begin.clear()
+        end.clear()
+
+        if Period == 'All_period':
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                for i in range(8760):
+                    writer.writerow([i, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+
+                j = 0
+                for i in per:
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+        # Данные за указанный интервал
+        if Period == 'Part_Period':
+            Mes_begin = request.GET.get('Mes_begin')
+            Day_begin = request.GET.get('Day_begin')
+            Hour_begin = request.GET.get('Hour_begin')
+
+            Mes_end = request.GET.get('Mes_end')
+            Day_end = request.GET.get('Day_end')
+            Hour_end = request.GET.get('Hour_end')
+
+            sum_begin = 0
+            sum_end = 0
+
+            for i in range(1, int(Mes_begin)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_begin = sum_begin + 744
+                if i == 2:
+                    sum_begin = sum_begin + 672
+                if i in [4, 6, 9, 11]:
+                    sum_begin = sum_begin + 720
+
+            sum_begin = sum_begin + int((int(Day_begin) - 1) * 24)
+            sum_begin = sum_begin + int(Hour_begin)
+
+            for i in range(1, int(Mes_end)):
+                if i in [1, 3, 5, 7, 8, 10, 12]:
+                    sum_end = sum_end + 744
+                if i == 2:
+                    sum_end = sum_end + 672
+                if i in [4, 6, 9, 11]:
+                    sum_end = sum_end + 720
+
+            sum_end = sum_end + int((int(Day_end) - 1) * 24)
+            sum_end = sum_end + int(Hour_end)
+
+            # Шаг дискретизации 1 час
+            if Hour == 'Hour_1':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in range(sum_begin - 1, sum_end):
+                    writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                    j = j + 1
+
+            # Шаг дискретизации 2 часа
+            if Hour == 'Hour_2':
+
+                response = HttpResponse(content_type='text/csv')
+                writer = csv.writer(response)
+                response['Content-Disposition'] = 'attachment; filename = "Irradiation_8760.csv"'
+
+                writer.writerow([' ', 'HOY', 'DOY', 'Month', 'Day', 'Hour', 'GHI', 'DHI', 'DirectHI', 'Albedo'])
+                j = 0
+                for i in per:
+                    if i in range(sum_begin - 1, sum_end + 1):
+                        writer.writerow([j, HOY[i], DOY[i], month[i], day[i], hour[i], a1[i], a3[i], a2[i], a[i]])
+                        j = j + 1
+
+    return response
