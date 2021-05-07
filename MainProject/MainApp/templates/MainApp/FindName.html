@@ -1,0 +1,33 @@
+{%extends 'MainApp/base3.html'%}
+{%block title%}
+Поиск по названию
+{% endblock %}
+
+{%block content%}
+    <form class = "form-control my-3" action="{% url 'SearchResult' %}" method="get">
+        {% csrf_token %}
+        <div class="container align-items-center justify-content-center d-flex flex-column w-100 ">
+
+        <span class="container shadow-sm p-2 mb-3 bg-light rounded  justify-content-center lead row text-center fs-6" >
+            Введите название интересующей станции
+        </span>
+
+        <div class=" justify-content-center flex-column row w-auto fs-6">
+            <input type="text" class=" input-group  my-2 justify-content-center mx-auto text-center fs-6" placeholder="Введите название" name="search" required>
+        </div>
+
+
+
+        <div class=" justify-content-center flex-column row w-auto ">
+
+        </div>
+
+        <div class=" justify-content-center d-flex">
+            <div class=" justify-content-center flex-column row   my-5">
+                <button type="submit" class="btn btn-dark  row justify-content-center mx-auto fs-6"  style="width: 100px;">Поиск</button>
+            </div>
+        </div>
+    </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{%extends 'MainApp/base3.html'%}
+{%block title%}
+Поиск по номеру
+{% endblock %}
+
+{%block content%}
+
+
+{% for el in res %}
+  <tbody style="font-size: 0.7rem">
+
+  <tr>
+    <td>{{el.Month_1}}</td>
+    <td>{{el.Month_2}}</td>
+    <td>{{el.Month_3}}</td>
+    <td>{{el.Month_4}}</td>
+    <td>{{el.Month_5}}</td>
+    <td>{{el.Month_6}}</td>
+    <td>{{el.Month_7}}</td>
+    <td>{{el.Month_8}}</td>
+    <td>{{el.Month_9}}</td>
+    <td>{{el.Month_10}}</td>
+    <td>{{el.Month_11}}</td>
+    <td>{{el.Month_12}}</td>
+  </tr>
+
+  </tbody>
+   {% endfor %}
+{{res1}}<br>
+{{b}}<br>
+{{e}}
+{% endblock %}

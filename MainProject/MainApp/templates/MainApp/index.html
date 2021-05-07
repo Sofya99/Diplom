@@ -1,0 +1,58 @@
+{%extends 'MainApp/base3.html'%}
+{%block title%}
+Главная страница
+{% endblock %}
+
+{%block content%}
+<div class="container d-flex flex-column justify-content-center ">
+
+<div class="rounded px-3 py-3 mx-3 mt-3" style="border: solid 1px #DDDDDD" >
+
+    <div class="d-flex flex-column w-100 justify-content-center align-items-center justify-content-center">
+        <span class="lead"><strong>База данных</strong></span>
+        <span style="font-size: 0.8rem; font-style: italic" class="lead">"Научно прикладного справочника по климату СССР"</span>
+    </div>
+
+</div>
+
+<div class="px-3 mx-3 mt-4 w-100">
+         <span class="container shadow-sm p-2 mb-2 bg-light rounded lead row" style="font-size: 0.9rem">
+           <ol>
+            <li class="mx-2">
+                <ul class="px-1">Приход солнечной радиации (суммарной, прямой, диффузной) на горизонтальную поверхность при средних условиях облачности:
+                    <div class="px-4 py-1" style="font-size: 0.8rem">
+                    <li>Среднемесячные часовые суммы солнечной радиации</li>
+                    <li>Среднемесячные суточные суммы солнечной радиации</li>
+                    <li>Месячные суммы солнечной радиации</li>
+                    </div>
+                </ul>
+            </li>
+            <li class="mx-2">
+                <ul class="px-1">
+                Среднемесячные коэффициенты отражательной способности поверхности - альбедо
+                </ul>
+            </li>
+           </ol>
+        </span>
+</div>
+
+<div class="px-3 mx-3 mt-2 w-100">
+         <span class="container shadow-sm p-2 mb-2 bg-light rounded lead row" style="font-size: 0.9rem">
+             <div class="px-1">
+            По наблюдениям 166 метрологических станций на территории России и стран СНГ
+             </div>
+        </span>
+</div>
+
+<div class="px-3 mx-3 mt-2 w-100">
+         <span class="container shadow-sm p-2 mb-2 bg-light rounded lead row " style="font-size: 0.9rem">
+             <div class="px-1">
+                 Для удобства использования информации по часовым, суточным и месячным данным солнечной радиации предствлены в кВт*ч/м<sup>2</sup>
+             </div>
+         </span>
+</div>
+
+</div>
+
+{% endblock %}
+

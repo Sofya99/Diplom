@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'MainApp/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'MainApp/css2/main.css' %}">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body class="position-relative">
+<div class="container " wfd-id="78">
+  <header class="d-flex flex-wrap justify-content-center my-3  border-bottom">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none py-md-2 mx-4">
+        <img class="bi me-2" width="130" height="60" src="{% static 'MainApp/img/logo1.png' %}" alt="РУЗ">
+    </a>
+
+
+
+    <ul class="nav nav-pills my-3 align-content-center" wfd-id="79">
+      <li class="page-item" wfd-id="84">
+          <a href="{% url 'ShowStations' %}" class="page-link btn-light "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+              Список станций</font></font>
+          </a>
+      </li>
+    </ul>
+  </header>
+</div>
+
+
+<div class="container " style="min-height: 30rem" wfd-id="78">
+    <div class="mx-3 d-sm-flex flex-wrap justify-content-center justify-content-center ">
+        <aside class="my-3 px-3 d-flex ms-md-auto me-md-auto justify-content-center  align-items-sm-start">
+            <div class="d-flex flex-column text-wrap  px-3 py-3 bg-light pb-4 rounded" wfd-id="60">
+                <a href="/" class="d-flex align-items-center text-center justify-content-center link-dark text-decoration-none">
+
+                <span class="fs-5 " wfd-id="69"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Поиск станции</font></font></span>
+                </a>
+            <hr class="hr">
+                <ul class="nav nav-pills flex-column ms-md-auto me-md-auto px-1" wfd-id="63">
+
+                     <li wfd-id="67">
+                        <a  href="{% url 'FindName' %}" class="nav-link link-dark">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Поиск по названию
+                        </font></font></a>
+
+                     </li>
+
+                    <li wfd-id="66">
+                        <a href="{% url 'FindNumber' %}" class="nav-link link-dark">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Поиск по номеру
+                        </font></font></a>
+                    </li>
+                    <li wfd-id="65">
+                        <a href="{% url 'FindCoord' %}" class="nav-link link-dark">
+                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Поиск по координатам
+                        </font></font></a>
+                    </li>
+                </ul>
+                <hr class="hr" style="height: 0.5px">
+            </div>
+        </aside>
+
+        <main class="mx-3 d-flex ms-md-auto me-md-auto align-items-start flex-fill  justify-content-center" style="width: 600px">
+
+            {%  block content %}
+            {% endblock %}
+
+        </main>
+    </div>
+</div>
+
+
+<div class="container navbar-fixed-bottom ">
+    <div class="navbar-inner">
+        <footer class=" modal-footer col-12 bg-white">
+                <p style="font-size: 0.7rem">Палагина Софья</p><br>
+                <p style="font-size: 0.7rem">2021</p>
+        </footer>
+    </div>
+</div>
+</body>
+
+</html>
