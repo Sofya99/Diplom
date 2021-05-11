@@ -4,8 +4,9 @@
 {% endblock %}
 
 {%block content%}
-<div class="container">
-<div class="d-flex flex-column">
+<div class="container ">
+<div class="d-flex flex-column justify-content-center w-100 my-3">
+<div class="table-responsive ">
 <table class="table table-bordered text-center fs-6" >
   <thead style="font-size: 0.7rem; font-style: italic; background-color: #f8f9fa">
     <tr >
@@ -30,35 +31,36 @@
   </tbody>
    {% endfor %}
 </table>
-
-
+</div>
+<div class="mx-2" >
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center" >
 
-    <li class="page-item {% if not prev_url %} disabled {% endif %}">
+    <li class="page-item {% if not prev_url %} disabled {% endif %}" style="font-size: 0.8rem">
       <a class="page-link" href="{{ prev_url }}" tabindex="-1" >&laquo;</a>
     </li>
 
     {% for n in page_object.paginator.page_range %}
 
     {% if page_object.number == n %}
-      <li class="page-item active" aria-current="page">
+      <li class="page-item active" aria-current="page" style="font-size: 0.8rem">
         <a class="page-link" href="?page={{ n }}">{{n}}</a>
       </li>
     {% else %}
 
-      <li class="page-item">
+      <li class="page-item" style="font-size: 0.8rem">
         <a class="page-link" href="?page={{ n }}">{{n}}</a>
       </li>
     {% endif %}
     {% endfor %}
 
 
-    <li class="page-item {% if not next_url %} disabled {% endif %}">
+    <li class="page-item {% if not next_url %} disabled {% endif %}" style="font-size: 0.8rem">
       <a class="page-link" href="{{ next_url }}" tabindex="-1" >&raquo;</a>
     </li>
   </ul>
 </nav>
+</div>
 </div>
 </div>
 {% endblock %}

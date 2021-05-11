@@ -5,6 +5,7 @@
 
 {%block content%}
  <form class = "form-control my-3" action="{% url 'Show' %}" method="get">
+     {% csrf_token %}
 <div class="container align-items-center justify-content-center d-flex flex-column w-100">
 
     <span class="container shadow-sm p-2 mb-3 bg-light rounded  justify-content-center lead row text-center fs-6" >
@@ -12,6 +13,8 @@
 
       <div class=" justify-content-center flex-column row w-auto">
         <div class="flex-row d-flex mb-4 ">
+
+
             <div class="flex-column d-flex justify-content-center align-items-center mx-md-5  ">
                 <span style="font-size: 0.8rem;">Широта</span>
                     <input type="number" step="any" class="my-sm-1 mw-auto" placeholder="30" min="0" max="90" name="search_coord_sr" required>

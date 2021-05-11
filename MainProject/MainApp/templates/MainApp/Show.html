@@ -3,61 +3,72 @@
 Поиск по номеру
 {% endblock %}
 {%block content%}
-<div class="container align-items-center justify-content-center d-flex flex-column w-100">
-    <span class="container shadow-sm p-2 mb-3 bg-light rounded  justify-content-center lead row text-center  mt-3" >
+{{k}}{{k1}}
+<form class = "form-control  my-3" >
+
+ <div class="align-items-center justify-content-center d-flex flex-column">
+     <span class="container shadow-sm p-2 mb-3 bg-light rounded  justify-content-center lead row text-center fs-6 " >
         Результаты поиска ближайших станций</span>
-<div class="container">
- <div class="d-flex flex-row justify-content-around">
- <form class = "form-control  w-auto" action="{% url 'SearchResult_1' %}" method="get">
 
-<div class="rounded px-3 mx-3 h-100" style="border: solid 1px #DDDDDD" >
+<div class="d-flex flex-wrap justify-content-center">
+       <div class="w-auto my-2 mx-1">
 
-  <div class="text-center py-sm-4 fw-normal ">
-  <button type="submit" style="font-size: 0.8rem; color: #6b6b6b" class="page-link btn-light  row justify-content-center mx-auto  w-100" name="search_coord_1" style="width: 100px;">{{res}}</button>
-  </div>
-    <div class="d-flex flex-column mb-2">
-        <span style="font-size: 0.7rem;"><strong>Широта:</strong> {{res.Latitude}}</span>
-    <span style="font-size: 0.7rem;"><strong>Долгота:</strong> {{res.Longitude}}</span>
-    <span style="font-size: 0.7rem;"><strong>Расстояние до заданной точки:</strong> {{n1}}</span>
-    </div>
-</div>
+    <form   action="{% url 'SearchResult' %}" method="get">
+    {% csrf_token %}
+        <div class=" rounded h-100" style="border: solid 1px #DDDDDD" >
 
-  </form>
-
-<form  class = "form-control w-auto" action="{% url 'SearchResult_2' %}" method="get">
-
-<div class=" rounded px-3 mx-3 h-100" style="border: solid 1px #DDDDDD" >
-
-  <div class="text-center py-4 fw-normal " >
-  <button type="submit" style="font-size: 0.8rem; color: #6b6b6b" class="page-link btn-light  row justify-content-center mx-auto w-100" name="search_coord_2" style="width: 100px;">{{res2}}</button>
-  </div>
- <div class="d-flex flex-column mb-2">
-     <span style="font-size: 0.7rem;"><strong>Широта:</strong> {{res2.Latitude}}</span>
-    <span style="font-size: 0.7rem;"><strong>Долгота:</strong> {{res2.Longitude}}</span>
-    <span style="font-size: 0.7rem;"><strong>Расстояние до заданной точки:</strong> {{n2}}</span>
+            <div class="text-center fw-normal my-2 mx-1 " >
+                <button type="submit" style="font-size: 0.8rem; color: #6b6b6b" class="page-link btn-light  row justify-content-center mx-auto w-auto" name="search_coord" value="1" style="width: 100px;">{{res}}</button>
+            </div>
+            <div class="d-flex flex-column w-75 my-2 mx-1">
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Широта:</strong> {{res.Latitude}}</span>
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Долгота:</strong> {{res.Longitude}}</span>
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Расстояние до заданной точки:</strong> {{n1}}</span>
+            </div>
+        </div>
+    </form>
     </div>
 
-</div>
-</form>
-<form class = "form-control w-auto" action="{% url 'SearchResult_3' %}" method="get">
+    <div class="w-auto my-2 mx-1">
+    <form   action="{% url 'SearchResult' %}" method="get">
+    {% csrf_token %}
+        <div class=" rounded h-100" style="border: solid 1px #DDDDDD" >
 
-<div class="rounded px-3 mx-3 h-100 " style="border: solid 1px #DDDDDD" >
-
-  <div class="text-center py-sm-4 fw-normal">
-  <button type="submit" style="font-size: 0.8rem; color: #6b6b6b" class="page-link btn-light  row justify-content-center mx-auto  w-100" name="search_coord_2" style="width: 100px;">{{res3}}</button>
-  </div>
- <div class="d-flex flex-column mb-2 ">
-     <span style="font-size: 0.7rem;"><strong>Широта:</strong> {{res3.Latitude}}</span>
-    <span style="font-size: 0.7rem;"><strong>Долгота:</strong> {{res3.Longitude}}</span>
-    <span style="font-size: 0.7rem;"><strong>Расстояние до заданной точки:</strong> {{n3}}</span>
+            <div class="text-center fw-normal my-2 mx-1 " >
+                <button type="submit" style="font-size: 0.8rem; color: #6b6b6b" class="page-link btn-light  row justify-content-center mx-auto w-auto" name="search_coord" value="2" style="width: 100px;">{{res2}}</button>
+            </div>
+            <div class="d-flex flex-column w-75 my-2 mx-1">
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Широта:</strong> {{res2.Latitude}}</span>
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Долгота:</strong> {{res2.Longitude}}</span>
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Расстояние до заданной точки:</strong> {{n2}}</span>
+            </div>
+        </div>
+    </form>
     </div>
 
-</div>
-</form>
+    <div class="w-auto my-2 mx-1">
+    <form  action="{% url 'SearchResult' %}" method="get">
+    {% csrf_token %}
+        <div class="rounded  h-100 " style="border: solid 1px #DDDDDD" >
+
+            <div class="text-center fw-normal my-2 mx-1 ">
+                <button type="submit" style="font-size: 0.8rem; color: #6b6b6b" class="page-link btn-light  justify-content-center mx-auto  w-auto" name="search_coord" value="3" style="width: 100px;">{{res3}}</button>
+            </div>
+            <div class="d-flex flex-column w-75 my-2 mx-1">
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Широта:</strong> {{res3.Latitude}}</span>
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Долгота:</strong> {{res3.Longitude}}</span>
+                <span style="font-size: 0.7rem;" class="text-wrap"><strong>Расстояние до заданной точки:</strong> {{n3}}</span>
+            </div>
+        </div>
+    </form>
+    </div>
 </div>
     <div class="my-5 mx-4">
-    <span  style="font-size: 0.7rem; font-style: italic;">* Данные станции были подобранны из расчета наименьшего расстояния (в километрах) от указанной Вами точки.</span>
+        <span  style="font-size: 0.7rem; font-style: italic;">* Данные станции были подобранны из расчета наименьшего расстояния (в километрах) от указанной Вами точки.</span>
     </div>
-</div>
-</div>
+
+ </div>
+
+</form>
+
 {% endblock %}

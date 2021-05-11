@@ -18,7 +18,7 @@
             <div class="d-flex flex-wrap justify-content-center ">
             <div class="custom-control custom-radio">
                 <input type="radio" id="All_period" value="All_period" name="Period" class="custom-control-input">
-                <label class="custom-control-label" for="All_period">За весь период наблюдений</label>
+                <label class="custom-control-label" style="font-size: 0.9rem" for="All_period">За весь период наблюдений</label>
             </div>
            </div>
         </div>
@@ -29,8 +29,8 @@
             <div class="d-flex flex-wrap justify-content-center ">
                 <p class="mb-2 align-content-end text-muted ">
                 <div class="custom-control custom-radio mb-1" >
-                    <input type="radio" id="Part_Period" value="Part_Period" name="Period" class="custom-control-input" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <label class="custom-control-label" for="Part_Period">Задать временной интервал</label>
+                    <input type="radio" id="Part_Period"  value="Part_Period" name="Period" class="custom-control-input" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <label class="custom-control-label" style="font-size: 0.9rem" for="Part_Period">Задать временной интервал</label>
                 </div>
                 </p>
 
@@ -39,13 +39,13 @@
             <div class="card card-body" >
                     <div class="d-flex flex-row justify-content-center mw-100">
         <div class="justify-content-center d-flex flex-column row w-auto mx-4  px-5 my-1 ">
-            <span class="justify-content-start px-0">Начиная с:</span>
+            <span class="justify-content-start px-0" style="font-size: 0.9rem">Начиная с:</span>
             <input type="number" step="any" style="font-size: 0.8rem" class=" input-group  my-2 justify-content-center mx-auto text-center" style="border: solid #b1b1b1 1px; color: #777A7A" placeholder="Месяц" name="Mes_begin" min="1" max="12" >
             <input type="number" step="any" style="font-size: 0.8rem" class=" input-group  my-2 justify-content-center mx-auto text-center" style="border: solid #b1b1b1 1px; color: #777A7A" placeholder="День" name="Day_begin" min="1" max="31" >
             <input type="number" step="any" style="font-size: 0.8rem" class=" input-group  my-2 justify-content-center mx-auto text-center" style="border: solid #b1b1b1 1px; color: #777A7A" placeholder="Час" name="Hour_begin" min="1" max="24" >
         </div>
         <div class="justify-content-center d-flex flex-column row w-auto mx-4 my-1 px-5">
-            <span class="justify-content-start px-0">Заканчивая на:</span>
+            <span class="justify-content-start px-0" style="font-size: 0.9rem">Заканчивая на:</span>
             <input type="number" step="any" style="font-size: 0.8rem" class=" input-group  my-2 justify-content-center mx-auto text-center" style="border: solid #b1b1b1 1px; color: #777A7A" placeholder="Месяц" name="Mes_end" min="1" max="12" >
             <input type="number" step="any" style="font-size: 0.8rem" class=" input-group  my-2 justify-content-center mx-auto text-center" style="border: solid #b1b1b1 1px; color: #777A7A" placeholder="День" name="Day_end" min="1" max="31" >
             <input type="number" step="any" style="font-size: 0.8rem" class=" input-group  my-2 justify-content-center mx-auto text-center" style="border: solid #b1b1b1 1px; color: #777A7A" placeholder="Час" name="Hour_end" min="1" max="24" >
@@ -66,11 +66,11 @@
         <div class="justify-content-start d-flex flex-column">
             <div class="custom-control custom-radio">
                 <input type="radio" id="Type_surok" value="Type_surok" name="Type" class="custom-control-input">
-                <label class="custom-control-label" for="Type_surok">"День сурка"</label>
+                <label class="custom-control-label" style="font-size: 0.9rem" for="Type_surok">"День сурка"</label>
             </div>
             <div class="custom-control custom-radio">
                 <input type="radio" id="Type_lin" value="Type_lin" name="Type" class="custom-control-input">
-                <label class="custom-control-label" for="Type_lin">Линейная интерполяция</label>
+                <label class="custom-control-label" style="font-size: 0.9rem" for="Type_lin">"Линейная интерполяция"</label>
             </div>
         </div>
 
@@ -80,16 +80,16 @@
         <div class="d-flex flex-column justify-content-start">
             <div class="custom-control custom-radio">
                 <input type="radio" id="Hour_1" value="Hour_1" name="Hour" class="custom-control-input">
-                <label class="custom-control-label" for="Hour_1">1 час</label>
+                <label class="custom-control-label" style="font-size: 0.9rem" for="Hour_1">1 час</label>
             </div>
             <div class="custom-control custom-radio">
                 <input type="radio" id="Hour_2" value="Hour_2" name="Hour" class="custom-control-input">
-                <label class="custom-control-label" for="Hour_2">2 часа</label>
+                <label class="custom-control-label" style="font-size: 0.9rem" for="Hour_2">2 часа</label>
             </div>
         </div>
 
-        <div class=" justify-content-around d-flex flex-row ">
-            <div class=" justify-content-center  row  mx-3 my-5">
+        <div class=" justify-content-around d-flex flex-row  mt-2">
+            <div class=" justify-content-center  row  mx-3 my-3">
                 <button type="submit" class="btn btn-dark  row justify-content-center mx-auto fs-6"  style="width: 200px;">Экспорт</button>
             </div>
         </div>
