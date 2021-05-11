@@ -391,7 +391,7 @@ def Show(request):
     stat2 = StationsNew.objects.get(id=n2)
     stat3 = StationsNew.objects.get(id=n3)
 
-    return render(request, 'MainApp/Show.html', context={ 'n1':format((name2[0])[1], '.2f'), 'n2':format((name2[1])[1], '.2f'),'n3':format((name2[2])[1], '.2f'), 'res':stat1, 'res2':stat2, 'res3':stat3, 'k':n1})
+    return render(request, 'MainApp/Show.html', context={ 'n1':format((name2[0])[1], '.2f'), 'n2':format((name2[1])[1], '.2f'),'n3':format((name2[2])[1], '.2f'), 'res':stat1, 'res2':stat2, 'res3':stat3})
 
 def Export(request):
 
