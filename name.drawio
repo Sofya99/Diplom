@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-03T09:26:15.145Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="a8TY5km-PmmIkELBsGxo" version="14.7.2" type="github">
+<mxfile host="app.diagrams.net" modified="2021-06-03T09:27:13.668Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="HI9AmIYNLnBL_1iKe2RS" version="14.7.2" type="github">
   <diagram id="mWplZK4BHEZrfkZpoma6" name="Page-1">
     <mxGraphModel dx="1483" dy="783" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -23,7 +23,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="PJY2FfgqVHya2o1p99eN-8" value="Вывод шаблона с текстом ошибки" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
-          <mxGeometry x="120" y="250" width="160" height="40" as="geometry" />
+          <mxGeometry x="110" y="250" width="180" height="40" as="geometry" />
         </mxCell>
         <mxCell id="PJY2FfgqVHya2o1p99eN-9" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="PJY2FfgqVHya2o1p99eN-8">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
