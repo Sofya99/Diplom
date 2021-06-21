@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-21T14:23:05.801Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="RlQ-ZP7Se4B6BkUuwSM6" version="14.7.10" type="github">
+<mxfile host="app.diagrams.net" modified="2021-06-21T14:26:37.374Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="Qku9IK41fEb7gAxvtWes" version="14.7.10" type="github">
   <diagram id="hwC4SEaQMCPyBl5hRSAV" name="Page-1">
     <mxGraphModel dx="1730" dy="2081" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -19,7 +19,7 @@
         <mxCell id="O2SbVEeWKp02B8JiuFix-1" value="&lt;i style=&quot;font-size: 14px;&quot;&gt;Начало&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=0.5;fontSize=14;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="347" y="-140" width="142" height="40.87" as="geometry" />
         </mxCell>
-        <mxCell id="O2SbVEeWKp02B8JiuFix-2" value="&lt;i style=&quot;font-size: 14px;&quot;&gt;Выход&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=0.5;fontSize=14;arcSize=50;" parent="1" vertex="1">
+        <mxCell id="O2SbVEeWKp02B8JiuFix-2" value="&lt;i style=&quot;font-size: 14px&quot;&gt;Конец&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=0.5;fontSize=14;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="343" y="1220" width="142" height="40.87" as="geometry" />
         </mxCell>
         <mxCell id="vhvGY6MIyfmY1ptXDZxQ-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.503;entryY=-0.001;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=14;strokeWidth=0.5;" edge="1" parent="1" source="O2SbVEeWKp02B8JiuFix-3" target="vhvGY6MIyfmY1ptXDZxQ-1">
