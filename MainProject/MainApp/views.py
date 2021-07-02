@@ -1,11 +1,37 @@
 import csv
+import functools
+
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import StationsNew, mes_sum_sum_srNew, mes_sum_straight_srNew, mes_sum_diff_srNew, MonthNew, AlbedoNew, sut_sum_diff_srNew, sut_sum_sum_srNew, sut_sum_straight_srNew, hour_sum_sum_srNew, hour_sum_straight_srNew, hour_sum_diff_srNew
+from .models import StationsNew, mes_sum_sum_srNew, mes_sum_straight_srNew, mes_sum_diff_srNew, AlbedoNew, sut_sum_diff_srNew, sut_sum_sum_srNew, sut_sum_straight_srNew, hour_sum_sum_srNew, hour_sum_straight_srNew, hour_sum_diff_srNew
 from django.core.paginator import Paginator
 from django.core import serializers
 from geopy import distance
 import operator
+import time
+
+def view_function_timer(prefix='', writeto=print):
+
+    def decorator(func):
+        @functools.wraps(func)
+        def inner(*args, **kwargs):
+            try:
+                t0 = time.time()
+                return func(*args, **kwargs)
+            finally:
+                t1 = time.time()
+                writeto(
+                    'View Function',
+                    '({})'.format(prefix) if prefix else '',
+                    func.__name__,
+                    args[1:],
+                    'Took',
+                    '{:.2f}ms'.format(1000 * (t1 - t0)),
+                    args[0].build_absolute_uri(),
+                )
+        return inner
+
+    return decorator
 
 
 def index(request):
@@ -42,7 +68,6 @@ def ShowStations(request):
 
 
 def FindName(request):
-
     return render(request, 'MainApp/FindName.html')
 
 
@@ -54,129 +79,6 @@ def FindCoord(request):
     return render(request, 'MainApp/FindCoord.html')
 
 
-
-
-
-
-
-
-def SearchResult(request):
-    search_query = request.GET.get('search', '')
-    request.session['res2'] = search_query
-    error = ''
-
-    search_query2 = request.GET.get('search_num', '')
-    request.session['res2_num'] = search_query2
-
-
-    Coord = request.GET.get("search_coord")
-    request.session['coord'] = Coord
-
-    object_list = serializers.serialize("python", StationsNew.objects.all())
-    Name = []
-    for object in object_list:
-        for field_name, field_value in object['fields'].items():
-            if field_name == 'NameStation':
-                Name.append(field_value)
-
-    if search_query:
-        stat = StationsNew.objects.filter(NameStation=search_query)
-        ser = serializers.serialize("json", stat)
-        request.session['res1'] = ser
-        r = StationsNew.objects.select_related('id').filter(NameStation=search_query)[:1]
-
-        if search_query in Name:
-            error = 'e'
-        else:
-            error = 'Станция не найдена!'
-
-
-    elif search_query2:
-
-        stat = StationsNew.objects.filter(id=search_query2)
-        ser = serializers.serialize("json", stat)
-        request.session['res1'] = ser
-        r = search_query2
-
-        if search_query2:
-            error = 'e'
-        else:
-            error = 'Станция не найдена!'
-
-    elif Coord == '1':
-        search_query_coord_1 = request.session.get('res_coord_1', '')
-
-        stat = StationsNew.objects.filter(id=search_query_coord_1)
-        ser = serializers.serialize("json", stat)
-        request.session['res1'] = ser
-        r = search_query_coord_1
-
-
-        if search_query_coord_1:
-            error = 'e'
-        else:
-            error = 'Станция не найдена!'
-
-    elif Coord == '2':
-        search_query_coord_2 = request.session.get('res_coord_2', '')
-
-        stat = StationsNew.objects.filter(id=search_query_coord_2)
-        ser = serializers.serialize("json", stat)
-        request.session['res1'] = ser
-        r = search_query_coord_2
-
-        if search_query_coord_2:
-            error = 'e'
-        else:
-            error = 'Станция не найдена!'
-
-    elif Coord == '3':
-        search_query_coord_3 = request.session.get('res_coord_3', '')
-
-        stat = StationsNew.objects.filter(id=search_query_coord_3)
-        ser = serializers.serialize("json", stat)
-        request.session['res1'] = ser
-        r = search_query_coord_3
-
-        if search_query_coord_3:
-            error = 'e'
-        else:
-            error = 'Станция не найдена!'
-
-    mes_sum = mes_sum_sum_srNew.objects.filter(id=r)
-    mes_straight = mes_sum_straight_srNew.objects.filter(id=r)
-    mes_diff = mes_sum_diff_srNew.objects.filter(id=r)
-
-    sut_sum = sut_sum_sum_srNew.objects.filter(id=r)
-    sut_straight = sut_sum_straight_srNew.objects.filter(id=r)
-    sut_diff = sut_sum_diff_srNew.objects.filter(id=r)
-
-    hour_sum = hour_sum_sum_srNew.objects.filter(IdStations=r)
-    hour_straight = hour_sum_straight_srNew.objects.filter(IdStations=r)
-    hour_diff = hour_sum_diff_srNew.objects.filter(IdStations=r)
-
-    albedo = AlbedoNew.objects.filter(id=r)
-    ser1 = serializers.serialize("json", albedo)
-    request.session['res3'] = ser1
-
-    context = {
-        'res' : stat,
-        'res_mes_sum' : mes_sum,
-        'res_mes_straight' : mes_straight,
-        'res_mes_diff' : mes_diff,
-        'res_sut_sum' : sut_sum,
-        'res_sut_straight' : sut_straight,
-        'res_sut_diff' : sut_diff,
-        'res_hour_sum' : hour_sum,
-        'res_hour_straight' : hour_straight,
-        'res_hour_diff' : hour_diff,
-        'albedo': albedo,
-        'error': error,
-
-    }
-
-
-    return render(request, 'MainApp/SearchResult.html', context= context)
 
 
 def Export_csv(request):
@@ -352,7 +254,7 @@ def Export_csv(request):
 
     return response
 
-
+@view_function_timer()
 def Show(request):
     search_query_sr = request.GET.get('search_coord_sr', '')
     search_query_dl = request.GET.get('search_coord_dl', '')
@@ -391,13 +293,16 @@ def Show(request):
     stat2 = StationsNew.objects.get(id=n2)
     stat3 = StationsNew.objects.get(id=n3)
 
-    return render(request, 'MainApp/Show.html', context={ 'n1':format((name2[0])[1], '.2f'), 'n2':format((name2[1])[1], '.2f'),'n3':format((name2[2])[1], '.2f'), 'res':stat1, 'res2':stat2, 'res3':stat3})
+    return render(request, 'MainApp/Show.html', context={ 'n1':format((name2[0])[1], '.2f'), 'n2':format((name2[1])[1], '.2f'),'n3':format((name2[2])[1], '.2f'), 'res':stat1, 'res2':stat2, 'res3':stat3, 'l':search_query_dl, 's':search_query_sr})
 
 def Export(request):
 
     return render(request, 'MainApp/Export.html')
 
+
+
 def Ex(request):
+
     res = request.session.get('res2')
     coord = request.session.get('coord')
     res1 = request.session.get('res2_num')
@@ -726,6 +631,18 @@ def Ex(request):
             Mes_end = request.GET.get('Mes_end')
             Day_end = request.GET.get('Day_end')
             Hour_end = request.GET.get('Hour_end')
+
+            if int(Mes_begin) > int(Mes_end):
+                return render(request, 'MainApp/Error.html')
+
+            if int(Mes_begin) == int(Mes_end):
+                if int(Day_begin) > int(Day_end):
+                    return render(request, 'MainApp/Error.html')
+
+            if int(Mes_begin) == int(Mes_end):
+                if int(Day_begin) == int(Day_end):
+                    if int(Hour_begin) > int(Hour_end):
+                        return render(request, 'MainApp/Error.html')
 
             sum_begin = 0
             sum_end = 0
@@ -2191,6 +2108,18 @@ def Ex(request):
             Day_end = request.GET.get('Day_end')
             Hour_end = request.GET.get('Hour_end')
 
+            if int(Mes_begin) > int(Mes_end):
+                return render(request, 'MainApp/Error.html')
+
+            if int(Mes_begin) == int(Mes_end):
+                if int(Day_begin) > int(Day_end):
+                    return render(request, 'MainApp/Error.html')
+
+            if int(Mes_begin) == int(Mes_end):
+                if int(Day_begin) == int(Day_end):
+                    if int(Hour_begin) > int(Hour_end):
+                        return render(request, 'MainApp/Error.html')
+
             sum_begin = 0
             sum_end = 0
 
@@ -2246,3 +2175,125 @@ def Ex(request):
 
     return response
 
+
+
+
+def SearchResult(request):
+    search_query = request.GET.get('search', '')
+    request.session['res2'] = search_query
+    error = ''
+
+    search_query2 = request.GET.get('search_num', '')
+    request.session['res2_num'] = search_query2
+
+    Coord = request.GET.get("search_coord")
+    request.session['coord'] = Coord
+
+    object_list = serializers.serialize("python", StationsNew.objects.all())
+    Name = []
+    for object in object_list:
+        for field_name, field_value in object['fields'].items():
+            if field_name == 'NameStation':
+                Name.append(field_value)
+
+    if search_query:
+        stat = StationsNew.objects.filter(NameStation=search_query)
+        ser = serializers.serialize("json", stat)
+        request.session['res1'] = ser
+        r = StationsNew.objects.select_related('id').filter(NameStation=search_query)[:1]
+
+        if search_query in Name:
+            error = 'e'
+        else:
+            error = 'Станция не найдена!'
+
+
+    elif search_query2:
+
+        stat = StationsNew.objects.filter(id=search_query2)
+        ser = serializers.serialize("json", stat)
+        request.session['res1'] = ser
+        r = search_query2
+
+        if search_query2:
+            error = 'e'
+        else:
+            error = 'Станция не найдена!'
+
+    elif Coord == '1':
+        search_query_coord_1 = request.session.get('res_coord_1', '')
+
+        stat = StationsNew.objects.filter(id=search_query_coord_1)
+        ser = serializers.serialize("json", stat)
+        request.session['res1'] = ser
+        r = search_query_coord_1
+
+
+        if search_query_coord_1:
+            error = 'e'
+        else:
+            error = 'Станция не найдена!'
+
+    elif Coord == '2':
+        search_query_coord_2 = request.session.get('res_coord_2', '')
+
+        stat = StationsNew.objects.filter(id=search_query_coord_2)
+        ser = serializers.serialize("json", stat)
+        request.session['res1'] = ser
+        r = search_query_coord_2
+
+        if search_query_coord_2:
+            error = 'e'
+        else:
+            error = 'Станция не найдена!'
+
+    elif Coord == '3':
+        search_query_coord_3 = request.session.get('res_coord_3', '')
+
+        stat = StationsNew.objects.filter(id=search_query_coord_3)
+        ser = serializers.serialize("json", stat)
+        request.session['res1'] = ser
+        r = search_query_coord_3
+
+        if search_query_coord_3:
+            error = 'e'
+        else:
+            error = 'Станция не найдена!'
+
+    mes_sum = mes_sum_sum_srNew.objects.filter(id=r)
+    mes_straight = mes_sum_straight_srNew.objects.filter(id=r)
+    mes_diff = mes_sum_diff_srNew.objects.filter(id=r)
+
+    sut_sum = sut_sum_sum_srNew.objects.filter(id=r)
+    sut_straight = sut_sum_straight_srNew.objects.filter(id=r)
+    sut_diff = sut_sum_diff_srNew.objects.filter(id=r)
+
+    hour_sum = hour_sum_sum_srNew.objects.filter(IdStations=r)
+    hour_straight = hour_sum_straight_srNew.objects.filter(IdStations=r)
+    hour_diff = hour_sum_diff_srNew.objects.filter(IdStations=r)
+
+    albedo = AlbedoNew.objects.filter(id=r)
+
+    ser1 = serializers.serialize("json", albedo)
+    request.session['res3'] = ser1
+
+    context = {
+        'res' : stat,
+        'res_mes_sum' : mes_sum,
+        'res_mes_straight' : mes_straight,
+        'res_mes_diff' : mes_diff,
+        'res_sut_sum' : sut_sum,
+        'res_sut_straight' : sut_straight,
+        'res_sut_diff' : sut_diff,
+        'res_hour_sum' : hour_sum,
+        'res_hour_straight' : hour_straight,
+        'res_hour_diff' : hour_diff,
+        'albedo': albedo,
+
+
+        'error': error,
+
+    }
+
+
+    return render(request, 'MainApp/SearchResult.html', context= context)
